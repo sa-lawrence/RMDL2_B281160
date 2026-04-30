@@ -1,0 +1,385 @@
+---
+title: "SLA_Project_TEST"
+format: html
+editor: visual
+---
+
+## 
+
+```{r}
+library(tidyverse)
+library(brms)
+library(tidybayes)
+library(ggdist)
+library(posterior)
+```
+
+```{r}
+files_to_read = list.files(
+  path = "./Data/data/",
+  pattern = "*.csv$",
+  recursive = TRUE,
+  full.names = TRUE
+)
+
+data_lst <- lapply(files_to_read, function(x) {
+  read_csv(x) %>%
+    select(participant_group, participant, Word1, Word2, Word3, Word4, Word5, Word6, Word7, Word8, Word9, Word10, Word11, Stimulitype, Trialtype, LoU, trial_number, CW)
+})
+
+
+full_SLA <- bind_rows(data_lst)
+
+```
+
+```{r}
+#filter data
+
+full_SLA_filter <- full_SLA %>%
+  filter(Trialtype != "FILLER")
+
+full_SLA_filter <- full_SLA_filter %>%
+  rename(Agreement_Type = Stimulitype)
+
+
+#grammaticality
+
+full_SLA_grammar <- full_SLA_filter %>%
+  mutate(
+    Grammaticality_Condition = if_else(Trialtype == "CORRECT", "GRAMMATICAL", "UNGRAMMATICAL")
+ )
+
+
+#get rid Trialtype
+
+full_SLA_critical <- full_SLA_grammar %>%
+  select(participant_group, participant, Word1, Word2, Word3, Word4, Word5, Word6, Word7, Word8, Word9, Word10, Word11, Agreement_Type, Grammaticality_Condition, LoU, trial_number, CW)
+
+```
+
+```{r}
+full_SLA_critical_RT <- full_SLA_critical %>%
+  mutate(
+    RT_CW = case_when(
+      CW == "Word1" ~ Word1,
+      CW == "Word2" ~ Word2,
+      CW == "Word3" ~ Word3,
+      CW == "Word4" ~ Word4,
+      CW == "Word5" ~ Word5,
+      CW == "Word6" ~ Word6,
+      CW == "Word7" ~ Word7,
+      CW == "Word8" ~ Word8,
+      CW == "Word9" ~ Word9,
+      CW == "Word10" ~ Word10,
+      CW == "Word11" ~ Word11
+    )
+  )
+
+
+  
+```
+
+```{r}
+#make RTs into milliseconds
+
+full_SLA_critical_RT <- full_SLA_critical_RT %>%
+  mutate(
+    RT_CW_ms = RT_CW*1000
+  )
+```
+
+```{r}
+full_SLA__ms_brm <- brm(
+  RT_CW_ms ~ Agreement_Type * Grammaticality_Condition * participant_group + (Agreement_Type * Grammaticality_Condition | participant) + (participant_group | trial_number),
+  family = lognormal,
+  data = full_SLA_critical_RT,
+  cores = 4,
+  seed = 1329,
+  file = "data/cache/SPR_brm_ms"
+)
+```
+
+```{r}
+summary(full_SLA__ms_brm)
+```
+
+```{r}
+conditional_effects(full_SLA__ms_brm, "Agreement_Type:Grammaticality_Condition", conditions = make_conditions(full_SLA__ms_brm, "participant_group"))
+```
+
+```{r}
+full_SLA_critical_RT |>
+  ggplot(aes(participant_group, RT_CW_ms, fill = Grammaticality_Condition)) +
+  facet_grid(~Agreement_Type) +
+  geom_jitter(alpha = 0.15, width = 0.1) +
+  geom_violin(width = 0.9) +
+  scale_fill_brewer(palette = "Dark2")+
+  xlab("Participant Group")+
+  ylab("Reaction Time(ms) for Critical Word")
+```
+
+```{r}
+#draws so we can pull summary measures
+SLA_ms_brm_draws <- as_draws_df(full_SLA__ms_brm)
+SLA_ms_brm_draws
+
+
+```
+
+```{r}
+#Mutating the draws to get the intercepts for all incorrect conditions
+SLA_ms_brm_draws_3 <- SLA_ms_brm_draws |> 
+  mutate(
+    early_adj_grammatical = b_Intercept,
+    early_adj_ungrammatical = b_Intercept + b_Grammaticality_ConditionUNGRAMMATICAL,
+    early_sva_ungrammatical = b_Intercept + b_Grammaticality_ConditionUNGRAMMATICAL + b_Agreement_TypeSubjectVerbAgreement + `b_Agreement_TypeSubjectVerbAgreement:Grammaticality_ConditionUNGRAMMATICAL`,
+    late_adj_ungrammatical = b_Intercept + b_Grammaticality_ConditionUNGRAMMATICAL + b_participant_grouplate + `b_Grammaticality_ConditionUNGRAMMATICAL:participant_grouplate`, 
+     late_sva_ungrammatical = b_Intercept + b_Grammaticality_ConditionUNGRAMMATICAL + b_participant_grouplate + b_Agreement_TypeSubjectVerbAgreement + `b_Agreement_TypeSubjectVerbAgreement:Grammaticality_ConditionUNGRAMMATICAL` + `b_Agreement_TypeSubjectVerbAgreement:participant_grouplate` + `b_Grammaticality_ConditionUNGRAMMATICAL:participant_grouplate` + `b_Agreement_TypeSubjectVerbAgreement:Grammaticality_ConditionUNGRAMMATICAL:participant_grouplate`)
+```
+
+```{r}
+
+#mean RTs for AA incorrect late vs early with the credible intervals
+#mean RT for early, adj, incorrect
+mean(SLA_ms_brm_draws_3$early_adj_ungrammatical) |> round(2)
+
+#mean RT for early, sva, incorrect
+mean(SLA_ms_brm_draws_3$early_sva_ungrammatical) |> round(2)
+
+#mean RT and SD for late, adj, incorrect
+mean(SLA_ms_brm_draws_3$late_adj_ungrammatical) |> round(2)
+
+#mean RT and SD for late, sva, incorrect
+mean(SLA_ms_brm_draws_3$late_sva_ungrammatical) |> round(2)
+```
+
+```{r}
+#extracting the new columns from the draws 
+SLA_ungrammatical <- SLA_ms_brm_draws_3 |>
+  select(early_adj_ungrammatical, early_sva_ungrammatical, 
+         late_adj_ungrammatical, late_sva_ungrammatical)
+```
+
+```{r}
+#now I am UNlogging the RTs in ms
+SLA_ungrammatical_unlogged <- SLA_ungrammatical |>
+  mutate(
+    early_adj_ungrammatical_log = early_adj_ungrammatical,
+    early_sva_ungrammatical_log = early_sva_ungrammatical,
+    late_adj_ungrammatical_log = late_adj_ungrammatical,
+    late_sva_ungrammatical_log = late_sva_ungrammatical,
+    early_adj_ungrammatical = exp(early_adj_ungrammatical),
+    early_sva_ungrammatical = exp(early_sva_ungrammatical),
+    late_adj_ungrammatical = exp(late_adj_ungrammatical),
+    late_sva_ungrammatical = exp(late_sva_ungrammatical)
+  )
+```
+
+```{r}
+#pivot longer UNLOGGED VALUES
+ungrammatical_unlogged_long <- SLA_ungrammatical_unlogged |> 
+  select(early_adj_ungrammatical, early_sva_ungrammatical, 
+         late_adj_ungrammatical, late_sva_ungrammatical) |> 
+  pivot_longer(everything(), names_to = "condition", values_to = "RT_ms")
+
+#summarise pivot longer 
+ungrammatical_unlogged_long_tab <- ungrammatical_unlogged_long |> 
+  group_by(condition) |> 
+  summarise(
+    mean = mean(RT_ms), sd = sd(RT_ms),
+    '95%' = paste0("[", paste(quantile(RT_ms, c(0.025, 0.975)) |> round(), collapse = ", "), "]"),
+    '66%' = paste0("[", paste(quantile(RT_ms, c(0.17, 0.83)) |> round(), collapse = ", "), "]")
+  )
+
+ungrammatical_unlogged_long_tab
+```
+
+```{r}
+#half eye plot for incorrect unlogged pivot longer 
+ungrammatical_unlogged_long |>
+  ggplot(aes(x = RT_ms, y = condition, fill = condition)) +
+  stat_halfeye() +
+  coord_cartesian(xlim = c(0, 2000))+
+  labs(
+    x = "Predicted RTs for Critical Words (ms)", y = "Conditions",
+    caption = "Point = median, thick bar = 66% CrI, thin bar = 95% CrI."
+  )
+```
+
+```{r}
+#pivot longer logged values
+ungrammatical_logged_long <- SLA_ungrammatical_unlogged |> 
+  select(early_adj_ungrammatical_log, early_sva_ungrammatical_log, 
+         late_adj_ungrammatical_log, late_sva_ungrammatical_log) |> 
+  pivot_longer(everything(), names_to = "condition", values_to = "RT_ms")
+
+#summarise pivot longer 
+ungrammatical_logged_long_tab <- ungrammatical_logged_long |> 
+  group_by(condition) |> 
+  summarise(
+    mean = mean(RT_ms), sd = sd(RT_ms),
+    '95%' = paste0("[", paste(quantile(RT_ms, c(0.025, 0.975)) |> round(), collapse = ", "), "]"),
+    '66%' = paste0("[", paste(quantile(RT_ms, c(0.17, 0.83)) |> round(), collapse = ", "), "]")
+  )
+
+ungrammatical_logged_long_tab
+```
+
+```{r}
+#half eye plot for incorrect logged pivot longer 
+ungrammatical_logged_long |>
+  ggplot(aes(x = RT_ms, y = condition, fill = condition)) +
+  stat_halfeye() +
+  labs(
+    x = "Predicted RTs for Critical Words (logged ms)", y = "Conditions",
+    caption = "Point = median, thick bar = 66% CrI, thin bar = 95% CrI."
+  )
+```
+
+```{r}
+
+full_SLA_critical_RT |>
+  ggplot(aes(participant_group, RT_CW_ms, fill = Grammaticality_Condition)) +
+  facet_grid(~Agreement_Type) +
+  geom_jitter(alpha = 0.15, width = 0.1) +
+  geom_violin(width = 0.9) +
+  scale_fill_brewer(palette = "Dark2")+
+  xlab("Participant Group")+
+  ylab("Reaction Time(ms) for Critical Word")
+
+
+```
+
+```{r}
+full_SLA_critical_RT |>
+  ggplot(aes(participant_group, RT_CW_ms, fill = Grammaticality_Condition)) +
+  facet_grid(~Agreement_Type) +
+  geom_jitter(alpha = 0.15, width = 0.1) +
+  geom_violin(width = 0.9) +
+  scale_fill_brewer(palette = "Dark2")+
+  xlab("Participant Group")+
+  ylab("Reaction Time(ms) for Critical Word")
+```
+
+```{r}
+#Mutating the draws to get the intercepts for all correct conditions
+SLA_ms_brm_draws_all <- SLA_ms_brm_draws_3 |> 
+  mutate(
+    early_adj_grammatical = b_Intercept,
+    early_sva_grammatical = b_Intercept + b_Agreement_TypeSubjectVerbAgreement,
+    late_adj_grammatical = b_Intercept + b_participant_grouplate, 
+    late_sva_grammatical = b_Intercept + b_participant_grouplate + b_Agreement_TypeSubjectVerbAgreement + `b_Agreement_TypeSubjectVerbAgreement:participant_grouplate`)
+```
+
+```{r}
+#mean RTs for AA incorrect late vs early with the credible intervals
+#mean RT for early, adj, correct
+mean(SLA_ms_brm_draws_3$early_adj_grammatical) |> round(2)
+
+#mean RT for early, sva, correct
+mean(SLA_ms_brm_draws_3$early_sva_grammatical) |> round(2)
+
+#mean RT and SD for late, adj, correct
+mean(SLA_ms_brm_draws_3$late_adj_grammatical) |> round(2)
+
+#mean RT and SD for late, sva, correct
+mean(SLA_ms_brm_draws_3$late_sva_grammatical) |> round(2)
+```
+
+```{r}
+#extracting the new columns from the draws 
+SLA_grammatical <- SLA_ms_brm_draws_all |>
+  select(early_adj_grammatical, early_sva_grammatical, 
+         late_adj_grammatical, late_sva_grammatical)
+```
+
+```{r}
+#now I am UNlogging the RTs in ms
+SLA_grammatical_unlogged <- SLA_grammatical |>
+  mutate(
+    early_adj_grammatical_log = early_adj_grammatical,
+    early_sva_grammatical_log = early_sva_grammatical,
+    late_adj_grammatical_log = late_adj_grammatical,
+    late_sva_grammatical_log = late_sva_grammatical,
+    early_adj_grammatical = exp(early_adj_grammatical),
+    early_sva_grammatical = exp(early_sva_grammatical),
+    late_adj_grammatical = exp(late_adj_grammatical),
+    late_sva_grammatical = exp(late_sva_grammatical)
+  )
+```
+
+```{r}
+#pivot longer UNLOGGED VALUES
+grammatical_unlogged_long <- SLA_grammatical_unlogged |> 
+  select(early_adj_grammatical, early_sva_grammatical, 
+         late_adj_grammatical, late_sva_grammatical) |> 
+  pivot_longer(everything(), names_to = "condition", values_to = "RT_ms")
+
+#summarise pivot longer 
+grammatical_unlogged_long_tab <- grammatical_unlogged_long |> 
+  group_by(condition) |> 
+  summarise(
+    mean = mean(RT_ms), sd = sd(RT_ms),
+    '95%' = paste0("[", paste(quantile(RT_ms, c(0.025, 0.975)) |> round(), collapse = ", "), "]"),
+    '66%' = paste0("[", paste(quantile(RT_ms, c(0.17, 0.83)) |> round(), collapse = ", "), "]")
+  )
+
+grammatical_unlogged_long_tab
+```
+
+```{r}
+#pivot longer logged values
+grammatical_logged_long <- SLA_grammatical_unlogged |> 
+  select(early_adj_grammatical_log, early_sva_grammatical_log, 
+         late_adj_grammatical_log, late_sva_grammatical_log) |> 
+  pivot_longer(everything(), names_to = "condition", values_to = "RT_ms")
+
+#summarise pivot longer 
+grammatical_logged_long_tab <- grammatical_logged_long |> 
+  group_by(condition) |> 
+  summarise(
+    mean = mean(RT_ms), sd = sd(RT_ms),
+    '95%' = paste0("[", paste(quantile(RT_ms, c(0.025, 0.975)) |> round(), collapse = ", "), "]"),
+    '66%' = paste0("[", paste(quantile(RT_ms, c(0.17, 0.83)) |> round(), collapse = ", "), "]")
+  )
+
+grammatical_logged_long_tab
+```
+
+```{r}
+#half eye plot for correct logged pivot longer 
+grammatical_unlogged_long |>
+  ggplot(aes(x = RT_ms, y = condition, fill = condition)) +
+  stat_halfeye() +
+  coord_cartesian(xlim = c(0, 2000))+
+  labs(
+    x = "Predicted RTs for Critical Words (logged ms)", y = "Conditions",
+    caption = "Point = median, thick bar = 66% CrI, thin bar = 95% CrI."
+  )
+```
+
+```{r}
+grammatical_unlogged_long |>
+  ggplot(aes(participant_group, RT_CW_ms, fill = Grammaticality_Condition)) +
+  facet_grid(~Agreement_Type) +
+  geom_jitter(alpha = 0.15, width = 0.1) +
+  geom_violin(width = 0.9) +
+  scale_fill_brewer(palette = "Dark2")+
+  xlab("Participant Group")+
+  ylab("Reaction Time(ms) for Critical Word")
+```
+
+```{r}
+raw_full_SLA_critical_RT <- full_SLA_critical_RT |> 
+  group_by(participant_group, Agreement_Type, Grammaticality_Condition) |> 
+  summarise(
+    mean = mean(RT_CW_ms), sd = sd(RT_CW_ms))
+```
+
+```{r}
+summarise_draws(full_SLA__ms_brm)
+```
+
+```{r}
+summary(full_SLA__ms_brm, prob = 0.6)
+```
