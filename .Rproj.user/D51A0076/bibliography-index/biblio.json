@@ -1,30 +1,844 @@
 {
     "sources": [
         {
-            "DOI": "10.1093/comjnl/27.2.97",
-            "ISSN": "0010-4620",
-            "URL": "https://doi.org/10.1093/comjnl/27.2.97",
+            "DOI": "10.1017/CBO9781107447257.014",
+            "ISBN": "978-1-107-44725-7 978-1-107-06058-6 978-1-107-63076-5",
+            "URL": "https://www.cambridge.org/core/product/identifier/9781107447257%23CN-bp-14/type/book_part",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2026,
+                        3,
+                        23
+                    ]
+                ]
+            },
             "author": [
                 {
-                    "family": "Knuth",
-                    "given": "Donald E."
+                    "family": "Van Heuven",
+                    "given": "Walter J. B."
+                },
+                {
+                    "family": "Coderre",
+                    "given": "Emily L."
                 }
             ],
-            "container-title": "Comput. J.",
-            "id": "knuth84",
+            "container-title": "The Cambridge Handbook of Bilingual Processing",
+            "edition": "1",
+            "editor": [
+                {
+                    "family": "Schwieter",
+                    "given": "John W."
+                }
+            ],
+            "id": "schwieter_orthographic_2015",
+            "issued": {
+                "date-parts": [
+                    [
+                        2015,
+                        8
+                    ]
+                ]
+            },
+            "page": "308-326",
+            "publisher": "Cambridge University Press",
+            "title": "Orthographic processingin bilinguals",
+            "type": "chapter"
+        },
+        {
+            "DOI": "10.1016/bs.pbr.2020.06.005",
+            "ISBN": "978-0-12-820723-9",
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0079612320300807",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2026,
+                        3,
+                        25
+                    ]
+                ]
+            },
+            "container-title": "Progress in Brain Research",
+            "id": "noauthor_more_2020",
+            "issued": {
+                "date-parts": [
+                    [
+                        2020
+                    ]
+                ]
+            },
+            "page": "243-262",
+            "publisher": "Elsevier",
+            "title": "More time for science: Using Testable to create and share behavioral experiments faster, recruit better participants, and engage students in hands-on research",
+            "title-short": "More time for science",
+            "type": "chapter",
+            "volume": "253"
+        },
+        {
+            "DOI": "10.1016/B978-0-12-394393-4.00007-8",
+            "ISBN": "978-0-12-394393-4",
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/B9780123943934000078",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2026,
+                        3,
+                        25
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Kroll",
+                    "given": "Judith F."
+                },
+                {
+                    "family": "Dussias",
+                    "given": "Paola E."
+                },
+                {
+                    "family": "Bogulski",
+                    "given": "Cari A."
+                },
+                {
+                    "family": "Kroff",
+                    "given": "Jorge R. Valdes"
+                }
+            ],
+            "container-title": "Psychology of Learning and Motivation",
+            "id": "kroll_juggling_2012",
+            "issued": {
+                "date-parts": [
+                    [
+                        2012
+                    ]
+                ]
+            },
+            "page": "229-262",
+            "publisher": "Elsevier",
+            "title": "Juggling Two Languages in One Mind",
+            "type": "chapter",
+            "volume": "56"
+        },
+        {
+            "DOI": "10.1080/01690960601000746",
+            "ISSN": "0169-0965, 1464-0732",
+            "URL": "http://www.tandfonline.com/doi/abs/10.1080/01690960601000746",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2026,
+                        3,
+                        25
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Blumenfeld",
+                    "given": "Henrike K."
+                },
+                {
+                    "family": "Marian",
+                    "given": "Viorica"
+                }
+            ],
+            "container-title": "Language and Cognitive Processes",
+            "id": "blumenfeld_constraints_2007",
+            "issue": "5",
+            "issued": {
+                "date-parts": [
+                    [
+                        2007,
+                        8
+                    ]
+                ]
+            },
+            "page": "633-660",
+            "title": "Constraints on parallel activation in bilingual spoken language processing: Examining proficiency and lexical status using eye-tracking",
+            "title-short": "Constraints on parallel activation in bilingual spoken language processing",
+            "type": "article-journal",
+            "volume": "22"
+        },
+        {
+            "DOI": "10.3389/fpsyg.2014.01070",
+            "ISSN": "1664-1078",
+            "URL": "http://journal.frontiersin.org/article/10.3389/fpsyg.2014.01070/abstract",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2026,
+                        3,
+                        25
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Coderre",
+                    "given": "Emily L."
+                },
+                {
+                    "family": "Van Heuven",
+                    "given": "Walter J. B."
+                }
+            ],
+            "container-title": "Frontiers in Psychology",
+            "id": "coderre_effect_2014",
+            "issued": {
+                "date-parts": [
+                    [
+                        2014,
+                        9
+                    ]
+                ]
+            },
+            "title": "The effect of script similarity on executive control in bilinguals",
+            "type": "article-journal",
+            "volume": "5"
+        },
+        {
+            "DOI": "10.1016/S0166-4115(08)61509-5",
+            "ISBN": "978-0-444-88922-5",
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0166411508615095",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2026,
+                        3,
+                        25
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Lee",
+                    "given": "Wei Ling"
+                },
+                {
+                    "family": "Wee",
+                    "given": "Ghim Choo"
+                },
+                {
+                    "family": "Tzeng",
+                    "given": "Ovid J. L."
+                },
+                {
+                    "family": "Hung",
+                    "given": "Daisy L."
+                }
+            ],
+            "container-title": "Advances in Psychology",
+            "id": "lee_study_1992",
+            "issued": {
+                "date-parts": [
+                    [
+                        1992
+                    ]
+                ]
+            },
+            "page": "427-442",
+            "publisher": "Elsevier",
+            "title": "A Study of Interlingual and Intralingual Stroop Effect in Three Different Scripts: Logograph, Syllabary, and Alphabet",
+            "title-short": "A Study of Interlingual and Intralingual Stroop Effect in Three Different Scripts",
+            "type": "chapter",
+            "volume": "83"
+        },
+        {
+            "DOI": "10.1007/BF01067626",
+            "ISSN": "0090-6905, 1573-6555",
+            "URL": "http://link.springer.com/10.1007/BF01067626",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2026,
+                        3,
+                        26
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "M�giste",
+                    "given": "Edith"
+                }
+            ],
+            "container-title": "Journal of Psycholinguistic Research",
+            "id": "mgiste_development_1985",
             "issue": "2",
             "issued": {
                 "date-parts": [
                     [
-                        1984,
-                        5
+                        1985,
+                        3
                     ]
                 ]
             },
-            "page": "97-111",
-            "publisher": "Oxford University Press, Inc.",
-            "publisher-place": "USA",
-            "title": "Literate programming",
+            "page": "137-154",
+            "title": "Development of intra- and interlingual interference in bilinguals",
+            "type": "article-journal",
+            "volume": "14"
+        },
+        {
+            "DOI": "10.18653/v1/W19-3114",
+            "URL": "https://www.aclweb.org/anthology/W19-3114",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2026,
+                        3,
+                        26
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Wolf-Sonkin",
+                    "given": "Lawrence"
+                },
+                {
+                    "family": "Schogol",
+                    "given": "Vlad"
+                },
+                {
+                    "family": "Roark",
+                    "given": "Brian"
+                },
+                {
+                    "family": "Riley",
+                    "given": "Michael"
+                }
+            ],
+            "container-title": "Proceedings of the 14th International Conference on Finite-State Methods and Natural Language Processing",
+            "id": "wolf-sonkin_latin_2019",
+            "issued": {
+                "date-parts": [
+                    [
+                        2019
+                    ]
+                ]
+            },
+            "page": "108-117",
+            "publisher": "Association for Computational Linguistics",
+            "publisher-place": "Dresden, Germany",
+            "title": "Latin script keyboards for South Asian languages with finite-state normalization",
+            "type": "paper-conference"
+        },
+        {
+            "DOI": "10.1017/S1366728902003012",
+            "ISSN": "1366-7289, 1469-1841",
+            "URL": "https://www.cambridge.org/core/product/identifier/S1366728902003012/type/journal_article",
+            "abstract": "The paper opens with an evaluation of the BIA model of bilingual word recognition in the light of recent empirical evidence. After pointing out problems and omissions, a new model, called the BIA+, is proposed. Structurally, this new model extends the old one by adding phonological and semantic lexical representations to the available orthographic ones, and assigns a different role to the so-called language nodes. Furthermore, it makes a distinction between the effects of non-linguistic context (such as instruction and stimulus list composition) and linguistic context (such as the semantic and syntactic effects of sentence context), based on a distinction between the word identification system itself and a task/decision system that regulates control. At the end of the paper, the generalizability of the BIA+ model to different tasks and modalities is discussed.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2026,
+                        3,
+                        26
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Dijkstra",
+                    "given": "Ton"
+                },
+                {
+                    "family": "Van Heuven",
+                    "given": "Walter J. B."
+                }
+            ],
+            "container-title": "Bilingualism: Language and Cognition",
+            "id": "dijkstra_architecture_2002",
+            "issue": "3",
+            "issued": {
+                "date-parts": [
+                    [
+                        2002,
+                        12
+                    ]
+                ]
+            },
+            "page": "175-197",
+            "title": "The architecture of the bilingual word recognition system: From identification to decision",
+            "title-short": "The architecture of the bilingual word recognition system",
+            "type": "article-journal",
+            "volume": "5"
+        },
+        {
+            "DOI": "10.1016/S1364-6613(00)01530-8",
+            "ISSN": "13646613",
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S1364661300015308",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2026,
+                        3,
+                        26
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "MacLeod",
+                    "given": "Colin M."
+                },
+                {
+                    "family": "MacDonald",
+                    "given": "Penny A."
+                }
+            ],
+            "container-title": "Trends in Cognitive Sciences",
+            "id": "macleod_interdimensional_2000",
+            "issue": "10",
+            "issued": {
+                "date-parts": [
+                    [
+                        2000,
+                        10
+                    ]
+                ]
+            },
+            "page": "383-391",
+            "title": "Interdimensional interference in the Stroop effect: Uncovering the cognitive and neural anatomy of attention",
+            "title-short": "Interdimensional interference in the Stroop effect",
+            "type": "article-journal",
+            "volume": "4"
+        },
+        {
+            "DOI": "10.1080/138255891007065",
+            "ISSN": "1382-5585, 1744-4128",
+            "URL": "http://www.tandfonline.com/doi/abs/10.1080/138255891007065",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2026,
+                        3,
+                        26
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Bugg",
+                    "given": "Julie M."
+                },
+                {
+                    "family": "DeLosh",
+                    "given": "Edward L."
+                },
+                {
+                    "family": "Davalos",
+                    "given": "Deana B."
+                },
+                {
+                    "family": "Davis",
+                    "given": "Hasker P."
+                }
+            ],
+            "container-title": "Aging, Neuropsychology, and Cognition",
+            "id": "bugg_age_2007",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2007,
+                        3
+                    ]
+                ]
+            },
+            "page": "155-167",
+            "title": "Age Differences in Stroop Interference: Contributions of General Slowing and Task-Specific Deficits",
+            "title-short": "Age Differences in Stroop Interference",
+            "type": "article-journal",
+            "volume": "14"
+        },
+        {
+            "DOI": "10.1007/s10936-019-09667-6",
+            "ISSN": "0090-6905, 1573-6555",
+            "URL": "http://link.springer.com/10.1007/s10936-019-09667-6",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2026,
+                        3,
+                        26
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Datta",
+                    "given": "Kalyani"
+                },
+                {
+                    "family": "Nebhinani",
+                    "given": "Naresh"
+                },
+                {
+                    "family": "Dixit",
+                    "given": "Abhinav"
+                }
+            ],
+            "container-title": "Journal of Psycholinguistic Research",
+            "id": "datta_performance_2019",
+            "issue": "6",
+            "issued": {
+                "date-parts": [
+                    [
+                        2019,
+                        12
+                    ]
+                ]
+            },
+            "page": "1441-1448",
+            "title": "Performance Differences in Hindi and English Speaking Bilinguals on Stroop Task",
+            "type": "article-journal",
+            "volume": "48"
+        },
+        {
+            "DOI": "10.1177/17470218231198500",
+            "ISSN": "1747-0218, 1747-0226",
+            "URL": "https://journals.sagepub.com/doi/10.1177/17470218231198500",
+            "abstract": "This study investigated the hypothesis of nonselective access to phonological representations in an integrated lexicon across logographic and alphabetic writing systems among Chinese L1 (first language)–English L2 (second language) bilinguals. We employed three experiments to test this hypothesis, including a lexical decision task (LDT) and a word naming task in Experiments 1 and 2 using the masked priming paradigm, and a self-paced sentence reading task in Experiment 3. Results from the LDT and the word naming task showed a significant homophone priming effect from L1 to L2, but not from L2 to L1. In the sentence reading task, we compared processing time between homophone error words and control words in the critical and spill-over regions. A slower processing effect in the homophone condition was observed in the spill-over region. Overall, these findings suggest that phonological priming occurs across a logographic and an alphabetic script in different tasks, whether reading isolated words or sentences. Bilingual reading involves an integrated bilingual lexicon that is independent of script similarity.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2026,
+                        4,
+                        30
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Zhang",
+                    "given": "Nan"
+                },
+                {
+                    "family": "Ren",
+                    "given": "Jinglei"
+                },
+                {
+                    "family": "Wang",
+                    "given": "Min"
+                },
+                {
+                    "family": "Jiang",
+                    "given": "Nan"
+                }
+            ],
+            "container-title": "Quarterly Journal of Experimental Psychology",
+            "id": "zhang_automatic_2024",
+            "issue": "7",
+            "issued": {
+                "date-parts": [
+                    [
+                        2024,
+                        7
+                    ]
+                ]
+            },
+            "page": "1399-1417",
+            "title": "Automatic phonological access among bilinguals with cross-script languages",
+            "type": "article-journal",
+            "volume": "77"
+        },
+        {
+            "DOI": "10.3389/fpsyg.2014.01070",
+            "ISSN": "1664-1078",
+            "URL": "http://journal.frontiersin.org/article/10.3389/fpsyg.2014.01070/abstract",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2026,
+                        4,
+                        30
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Coderre",
+                    "given": "Emily L."
+                },
+                {
+                    "family": "Van Heuven",
+                    "given": "Walter J. B."
+                }
+            ],
+            "container-title": "Frontiers in Psychology",
+            "id": "coderre_effect_2014-1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2014,
+                        9
+                    ]
+                ]
+            },
+            "title": "The effect of script similarity on executive control in bilinguals",
+            "type": "article-journal",
+            "volume": "5"
+        },
+        {
+            "DOI": "10.1075/ml.3.3.06lin",
+            "ISSN": "1871-1340, 1871-1375",
+            "URL": "http://www.jbe-platform.com/content/journals/10.1075/ml.3.3.06lin",
+            "abstract": "Many recent studies demonstrate that both languages are active when bilinguals and second language (L2) learners are reading, listening, or speaking one language only. The parallel activity of the two languages has been hypothesized to create competition that must be resolved. Models of bilingual lexical access have proposed an inhibitory control mechanism to effectively limit attention to the intended language (e.g., Green, 1998). Critically, other recent research suggests that a lifetime of experience as a bilingual negotiating the competition across the two languages confers a set of benefits to cognitive control processes more generally (e.g., Bialystok, Craik, Klein, & Viswanathan, 2004). However, few studies have examined the consequences of individual differences in inhibitory control for performance on language processing tasks. The goal of the present work was to determine whether there is a relation between enhanced executive function and performance for L2 learners and bilinguals on lexical comprehension and production tasks. Data were analyzed from two studies involving a range of language processing tasks, a working memory measure, and also the Simon task, a nonlinguistic measure of inhibitory control. The results demonstrate that greater working memory resources and enhanced inhibitory control are related to a reduction in cross-language activation in a sentence context word naming task and a picture naming task, respectively. Other factors that may be related to inhibitory control are identified. The implications of these results for models of bilingual lexical comprehension and production are discussed.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2026,
+                        4,
+                        30
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Linck",
+                    "given": "Jared A."
+                },
+                {
+                    "family": "Hoshino",
+                    "given": "Noriko"
+                },
+                {
+                    "family": "Kroll",
+                    "given": "Judith F."
+                }
+            ],
+            "container-title": "The Mental Lexicon",
+            "id": "linck_cross-language_2008",
+            "issue": "3",
+            "issued": {
+                "date-parts": [
+                    [
+                        2008,
+                        12
+                    ]
+                ]
+            },
+            "page": "349-374",
+            "title": "Cross-language lexical processes and inhibitory control",
+            "type": "article-journal",
+            "volume": "3"
+        },
+        {
+            "DOI": "10.3389/fpsyg.2014.01539",
+            "ISSN": "1664-1078",
+            "URL": "http://journal.frontiersin.org/article/10.3389/fpsyg.2014.01539/abstract",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2026,
+                        4,
+                        30
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Paap",
+                    "given": "Kenneth R."
+                },
+                {
+                    "family": "Darrow",
+                    "given": "Jack"
+                },
+                {
+                    "family": "Dalibar",
+                    "given": "Chirag"
+                },
+                {
+                    "family": "Johnson",
+                    "given": "Hunter A."
+                }
+            ],
+            "container-title": "Frontiers in Psychology",
+            "id": "paap_effects_2015",
+            "issued": {
+                "date-parts": [
+                    [
+                        2015,
+                        1
+                    ]
+                ]
+            },
+            "title": "Effects of script similarity on bilingual advantages in executive control are likely to be negligible or null",
+            "type": "article-journal",
+            "volume": "5"
+        },
+        {
+            "DOI": "10.1016/j.cognition.2007.02.001",
+            "ISSN": "00100277",
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0010027707000431",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2026,
+                        4,
+                        30
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Hoshino",
+                    "given": "Noriko"
+                },
+                {
+                    "family": "Kroll",
+                    "given": "Judith F."
+                }
+            ],
+            "container-title": "Cognition",
+            "id": "hoshino_cognate_2008",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2008,
+                        1
+                    ]
+                ]
+            },
+            "page": "501-511",
+            "title": "Cognate effects in picture naming: Does cross-language activation survive a change of script?",
+            "title-short": "Cognate effects in picture naming",
+            "type": "article-journal",
+            "volume": "106"
+        },
+        {
+            "DOI": "10.1177/13670069251335863",
+            "ISSN": "1367-0069, 1756-6878",
+            "URL": "https://journals.sagepub.com/doi/10.1177/13670069251335863",
+            "abstract": "Aims and Objectives: Inspired by Yahya & Ozkan Ceylan’s, this study explored reasons for the absence of asymmetrical switch costs and its theoretical implications. Specifically, we aimed to examine whether the type of language script contributes to language control in bilinguals, potentially resulting in anticipated language switch cost asymmetries. We report the preliminary results.Methodology: Ten bilingual participants were presented with color words in either Turkish (L1) or Macedonian (L2), printed in congruent or incongruent ink colors. They named the ink color in the language of presentation. Stimuli language and congruency either matched or differed from the previous trial.Data and Analysis: Reaction times (RT) were analyzed using a linear mixed-effects model.Findings: The pilot findings mostly aligned with the original study, with larger switch cost performance in incongruent, and larger Stroop effects in language switch trials. Interestingly, the preliminary results indicate to a greater switch cost for L1 compared to L2, suggesting that script types may affect switch costs. In general results lead into the direction for possible script effects and are in line with and compatible with the original study.Originality: This study presents data from Turkish–Macedonian bilinguals, a linguistic population rare in the existing literature.Significance/Implications: We addressed potential limitations of the current experimental design, such as ecological validity and ability to demonstrate asymmetries, proposing alternative experimental approaches for future studies.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2026,
+                        4,
+                        30
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Yahya",
+                    "given": "Mevla"
+                },
+                {
+                    "family": "Kirjakovski",
+                    "given": "Atanas"
+                },
+                {
+                    "family": "Özkan Ceylan",
+                    "given": "Arzu"
+                }
+            ],
+            "container-title": "International Journal of Bilingualism",
+            "id": "yahya_script_2026",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2026,
+                        4
+                    ]
+                ]
+            },
+            "page": "638-652",
+            "title": "Script influence on language switch costs in a Stroop task: Pilot results",
+            "title-short": "Script influence on language switch costs in a Stroop task",
+            "type": "article-journal",
+            "volume": "30"
+        },
+        {
+            "DOI": "10.1016/j.cognition.2021.104659",
+            "ISSN": "00100277",
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0010027721000780",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2026,
+                        4,
+                        30
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Bosworth",
+                    "given": "Rain G."
+                },
+                {
+                    "family": "Binder",
+                    "given": "Eli M."
+                },
+                {
+                    "family": "Tyler",
+                    "given": "Sarah C."
+                },
+                {
+                    "family": "Morford",
+                    "given": "Jill P."
+                }
+            ],
+            "container-title": "Cognition",
+            "id": "bosworth_automaticity_2021",
+            "issued": {
+                "date-parts": [
+                    [
+                        2021,
+                        7
+                    ]
+                ]
+            },
+            "page": "104659",
+            "title": "Automaticity of lexical access in deaf and hearing bilinguals: Cross-linguistic evidence from the color Stroop task across five languages",
+            "title-short": "Automaticity of lexical access in deaf and hearing bilinguals",
+            "type": "article-journal",
+            "volume": "212"
+        },
+        {
+            "DOI": "10.1007/s11145-013-9436-5",
+            "ISSN": "0922-4777, 1573-0905",
+            "URL": "http://link.springer.com/10.1007/s11145-013-9436-5",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2026,
+                        5,
+                        1
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Mishra",
+                    "given": "Ramesh Kumar"
+                },
+                {
+                    "family": "Singh",
+                    "given": "Niharika"
+                }
+            ],
+            "container-title": "Reading and Writing",
+            "id": "mishra_language_2014",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2014,
+                        1
+                    ]
+                ]
+            },
+            "page": "129-151",
+            "title": "Language non-selective activation of orthography during spoken word processing in Hindi–English sequential bilinguals: An eye tracking visual world study",
+            "title-short": "Language non-selective activation of orthography during spoken word processing in Hindi–English sequential bilinguals",
             "type": "article-journal",
             "volume": "27"
         }

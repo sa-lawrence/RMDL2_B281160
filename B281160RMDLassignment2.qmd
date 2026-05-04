@@ -34,7 +34,14 @@ In line with the BIA+ model, we hypothesise that the greatest Stroop effect will
 
 ### 2.1 Participants
 
-The study sample consists of 5 participants between 18 and 40 years of age; please see Table 1 for an overview of participant characteristics. The sample group was smaller than initially planned due to unexpected constraints with participant recruitment. The participants are highly proficient sequential bilingual speakers of Hindi and English. All participants acquired Hindi at home before the age of 5 and acquired English at school from the age of 5 onwards. Note, for the purposes of this paper that bilingual in this paper is defined as “a person who knows more than one language and uses them to communicate is considered a bilingual, even if she does not have native-like proficiency in both languages” (pp.2 Sorace et al., 2023). The participants did not disclose any clinical history of colour blindness, head trauma, neurological disease, substance abuse, or sedative use in the 72 hours prior to taking the experiment. This was to eliminate any neurological conditions that would interfere with the participants’ reaction times.
+The study sample consists of 5 participants between 18 and 40 years of age; please see Table 1 for an overview of participant characteristics. The sample group was smaller than initially planned due to unexpected constraints with participant recruitment. The participants are highly proficient sequential bilingual speakers of Hindi and English, although interestingly there was considerable variation in Hindi reading proficiency. All participants acquired Hindi at home before the age of 5 and acquired English at school from the age of 5 onwards. Note, for the purposes of this paper that bilingual in this paper is defined as “a person who knows more than one language and uses them to communicate is considered a bilingual, even if she does not have native-like proficiency in both languages” (pp.2 Sorace et al., 2023). The participants did not disclose any clinical history of colour blindness, head trauma, neurological disease, substance abuse, or sedative use in the 72 hours prior to taking the experiment. This was to eliminate any neurological conditions that would interfere with the participants’ reaction times.
+
+|   | Mean AoA (years) | Mean spoken proficiency (/10) | Mean reading proficiency (/10) |
+|----------------|----------------|:---------------|:------------------------|
+| English | 3 | 9.3 | 9.3 |
+| Hindi | 1.66 | 8.6 | 5.3 |
+
+: *Table 1: Participant language characteristics, including Age of Acquisition (AoA) and spoken/reading proficiency data*
 
 ### 2.2 Materials
 
@@ -162,20 +169,17 @@ As stated in Section 2.4, the key summary measures of interest are the mean, med
 
 ```{r}
 #| label: summary-RT
-#Calculating summary measures. 1. Mean and SD of reaction times, grouped by trial type and language
+#Calculating summary measures. 
 Stroop_filter |> 
   group_by(language, Trialtype) |> 
   summarise(
-    mean = mean(RT), sd = sd(RT), median(RT), min(RT), max(RT)) |>
-  knitr::kable(digits = 2, col.names = c("Trial Language", "Congruency 
-                                         Condition", "Mean RT", "SD RT", 
-                                         "Median RT", "Min RT", "Max RT"), 
-               caption = "Table 4: Summary measures of reaction times (RT) 
-               across language and congruency conditions")
+    mean = mean(RT), sd = sd(RT), median(RT), min(RT), max(RT)) |> 
+  knitr::kable(digits = 2, col.names = c("Trial Language", "Congruency Condition", "Mean RT", "SD RT", "Median RT", "Min RT", "Max RT"), 
+  caption = "Table 4: Summary measures of reaction times (RT) across language and congruency conditions")
+    
 ```
+
 Surprisingly, mean RTs in the Latin script Hindi condition were the fastest across incongruent and congruent trials. Within the congruent conditions, English had the highest mean RT at 1559ms followed by Devanagari Hindi at 1261.68ms and 1253.12ms for Latin Hindi. Within the incongruent conditions, Devanagari Hindi was the slowest at 1820.48ms, followed by English at 1811.48ms and Latin Hindi at 1201.97ms. This means the mean RTs for Latin script Hindi were actually faster in the incongruent trials than the congruent trials. Latin Hindi also had the lowest median RTs (congruent = 941ms, incongruent = 964ms) of all language conditions and the lowest SD (congruent = 852.46, incongruent = 624.77), the latter of which indicates less variance than the other two language conditions.
-
-
 
 ```{r}
 #| label: summary-accuracy-pptID
@@ -187,7 +191,6 @@ Stroop_filter |>
                caption = "Table 5: Summary measures of accuracy 
                across language and congruency conditions by participant")
 ```
-
 
 ```{r}
 #| label: summary-accuracy-pptALL
@@ -222,7 +225,8 @@ jitterviolinRT_raw <- Stroop_filter |>
 
 jitterviolinRT_raw
 ```
-This is a jitter plot of RTs grouped by language and separated by congruency condition in two panels. Within each panel, the participant’s language is represented by colour, with green for English, orange for Hindi, and purple for Latin Hindi. The jitter plots show the individual raw data points, and the violin overlay indicates the density and variability in participants' responses. As shown in the summary conditions above, there appears to be greater variability in the RTs in  incongruent conditions for English and Devanagari Hindi, with the exception of the outliers in the English congruent condition, reporting RTs of over 8000ms. Latin Hindi is the exception to this pattern, with similar density width patterns yet less overall variability in RT range. 
+
+This is a jitter plot of RTs grouped by language and separated by congruency condition in two panels. Within each panel, the participant’s language is represented by colour, with green for English, orange for Hindi, and purple for Latin Hindi. The jitter plots show the individual raw data points, and the violin overlay indicates the density and variability in participants' responses. As shown in the summary conditions above, there appears to be greater variability in the RTs in incongruent conditions for English and Devanagari Hindi, with the exception of the outliers in the English congruent condition, reporting RTs of over 8000ms. Latin Hindi is the exception to this pattern, with similar density width patterns yet less overall variability in RT range.
 
 ```{r}
 # This jitter plot depicts the mean accuracy percentage for each participant grouped by language and trial type to explore the relationship between accuracy, language, and trial type.
@@ -254,27 +258,8 @@ ggplot() +
   facet_grid(cols = vars(Trialtype)) 
   
 ```
-Figure 2 is a jitter plot depicting the mean accuracy rating per participant by language and congruency condition. Mean accuracy scores were calculated per participant (as seen in section 3.3). Then, means of these means and confidence intervals were fitted with the stat_summary() function and plotted with geom_jitter(). As with Figure 1 above, congruency and incongruency are separated into 2 panels to assess the difference in Stroop effect from the incongruent conditions. English data is in red, Hindi is in green, and Latin Hindi is in blue. Accuracy between congruent and incongruent varied most in the English condition, while accuracy in Latin Hindi remains consistent between congruency conditions. Incongruent Hindi trials shows the greatest variability in accuracy, with a possible outlier to be considered. 
 
-### Summarise the data
-
-*Calculate and report appropriate summary measures for relevant variables in the data.*
-
-```{r}
-
-#Calculating summary measures. 1. Mean and SD of reaction times, grouped by trial type and language
-raw_stroop_filter <- Stroop_filter |> 
-  group_by(Trialtype, language) |> 
-  summarise(
-    mean = mean(RT), sd = sd(RT))
-
-accuracy_stroop_filter <- Stroop_filter |>
-  group_by(participant_ID, Trialtype, language) |> 
-  summarise(
-    prop_accuracy = round(mean(correct),2))
-
-
-```
+Figure 2 is a jitter plot depicting the mean accuracy rating per participant by language and congruency condition. Mean accuracy scores were calculated per participant (as seen in section 3.3). Then, means of these means and confidence intervals were fitted with the stat_summary() function and plotted with geom_jitter(). As with Figure 1 above, congruency and incongruency are separated into 2 panels to assess the difference in Stroop effect from the incongruent conditions. English data is in red, Hindi is in green, and Latin Hindi is in blue. Accuracy between congruent and incongruent varied most in the English condition, while accuracy in Latin Hindi remains consistent between congruency conditions. Incongruent Hindi trials shows the greatest variability in accuracy, with a possible outlier to be considered.
 
 ## 4. Lognormal regression modelling
 
@@ -285,7 +270,8 @@ This model is designed to assess the relationship between RTs, language script, 
 Finally, the model was fitted with 0.999 adapt_delta and a max_treedepth of 15 to avoid divergent transitions.
 
 ```{r}
-#running the lognormal regression model, as the variable of interest is continuous and cannot be below 0. If you get divergent transitions, add a new parameter to brm model. 
+#running the lognormal regression model, as the variable of interest is continuous and cannot be below 0. Divergent transitions were flagged several times, so new parameters were added to brm model. 
+#| label: initial model
 
 ENHIstroopbrm <- brm(
   RT ~ language * Trialtype + (language * Trialtype | participant_ID),
@@ -298,11 +284,40 @@ ENHIstroopbrm <- brm(
 )
 ```
 
-```{r}
-summary(ENHIstroopbrm)
-```
+The summary measures are as follows below:
 
 ```{r}
+#| label: brm summary
+summary(ENHIstroopbrm)
+
+```
+
+Under regression coefficients, the l-95% and u-95% credible intervals (CrIs) all cross 0, thereby indicating the model cannot be confident about a correlation between the Hindi and Latin script conditions or the congruency conditions at 95% confidence.
+
+```{r}
+#| label: summary 80%
+
+
+fixef(ENHIstroopbrm, probs = c(0.1, 0.9)) |> round(2)
+```
+
+At 80% CrIs, the upper and lower credible intervals cross 0 for all conditions except Latin Hindi congruent. This means the model is 80% confident that the RTs will decrease by -0.19 logged ms in the Latin Hindi congruent condition, but still not confident enough to identify a relationship between any of our other variables of interest. This finding is a stark contradiction with the hypothesis associated with our first research question.
+
+```{r}
+#| label: summary 70%
+
+
+fixef(ENHIstroopbrm, probs = c(0.15, 0.85)) |> round(2)
+```
+
+At 70% CrIs, the upper and lower estimate boundaries for Congruent Hindi, Incongruent English and Incongruent Hindi no longer cross 0, in addition to Congruent Latin Hindi as above in 80% CrIs. For every increase of 1 logged ms, the model is 70% confident that the RTs in the Congruent Hindi conditions will decrease by -0.28 to -0.03 logged ms, and between -0.32 and -0.05 logged ms for congruent Latin Hindi. It predicts that RTs in Incongruent English trials would increase between 0.02-0.33 logged ms for every increase in 1 logged ms at the intercept; this is the only condition where the model is 70% confident (or less) of an increase in reaction times.
+
+To understand the effect of each of the language conditions and congruency conditions in greater depth, and unlog the values to plot them, we pulled the MCMC draws from the brms. We combined the intercept (English congruent) with the interactions of interest (Hindi congruent, Latin Hindi congruent, English incongruent, Hindi incongruent, Latin Hindi incongruent, Hindi incongruent interaction and latin Hindi incongruent interaction) to establish the posterior estimates for these 6 conditions.
+
+```{r}
+#| label: MCMC draws 
+
+
 #draws so we can pull summary measures
 stroopbrm_draws <- as_draws_df(ENHIstroopbrm)
 stroopbrm_draws
@@ -321,11 +336,21 @@ stroopbrm_draws2 <- stroopbrm_draws |>
 ```
 
 ```{r}
-#As this is a log-normal regression model, I am unlogging the RTs to convert them back to ms.
+#| label: selecting relevant conditions
+
+
+#Selecting the relevant columns from the draws and pulling them into a new tibble for clarity.
 
 stroopbrm_draws3 <- stroopbrm_draws2 |>
-  select(english_congruent, hindi_congruent, latin_hindi_congruent, english_incongruent, hindi_incongruent, latin_hindi_incongruent) 
+  select(english_congruent, hindi_congruent, latin_hindi_congruent, english_incongruent, hindi_incongruent, latin_hindi_incongruent)
+```
 
+The Lognormal regression model automatically logs the RTs to approximate them to a Gaussian distribution; however, for ease of interpreting the summary estimates, we can unlog them to retrieve the estimated RTs in ms from the draws.
+
+```{r}
+#| label: unlogging the draws
+
+# unlogging the RTs to convert them back to ms; mutate is used to create new columns for the unlogged values and rename the previous columns as "logged" for clarity.
 
 stroopdrawsunlog <- stroopbrm_draws3 |>
   mutate(
@@ -343,10 +368,40 @@ stroopdrawsunlog <- stroopbrm_draws3 |>
     latin_hindi_incongruent_unlog = exp(latin_hindi_incongruent)
   )
 
-
 ```
 
+As the model did not have confidence in a relationship between conditions at 95% intervals, we can explore the summary measures of the regression coefficients (logged) at 85, 75, and 66% confidence intervals.
+
 ```{r}
+#| label: pivoting logged
+
+
+#pivot longer LOGGED VALUES
+stroopdrawslog_long <- stroopdrawsunlog |> 
+  select(english_congruent_log, english_incongruent_log, 
+         hindi_congruent_log, hindi_incongruent_log, latin_hindi_congruent_log, latin_hindi_incongruent_log) |> 
+  pivot_longer(everything(), names_to = "condition", values_to = "RT_ms")
+
+#summarise pivot longer 
+stroopdrawslog_long_tab <- stroopdrawslog_long |> 
+  group_by(condition) |> 
+  summarise(
+    mean = mean(RT_ms), sd = sd(RT_ms),
+    '95%' = paste0("[", paste(quantile(RT_ms, c(0.025, 0.975)) |> round(2), collapse = ", "), "]"),
+    '85%' = paste0("[", paste(quantile(RT_ms, c(0.075, 0.925)) |> round(2), collapse = ", "), "]"),
+    '75%' = paste0("[", paste(quantile(RT_ms, c(0.125, 0.875)) |> round(2), collapse = ", "), "]"),
+    '66%' = paste0("[", paste(quantile(RT_ms, c(0.17, 0.83)) |> round(2), collapse = ", "), "]")
+  )
+  
+stroopdrawslog_long_tab
+```
+
+We can now do the same with the unlogged values to establish the summary measures of the regression coefficients (unlogged) at 85, 75, and 66% confidence intervals.
+
+```{r}
+#| label: pivot unlogged
+
+
 #pivot longer UNLOGGED VALUES
 stroopdrawsunlog_long <- stroopdrawsunlog |> 
   select(english_congruent_unlog, english_incongruent_unlog, 
@@ -358,17 +413,57 @@ stroopdrawsunlog_long_tab <- stroopdrawsunlog_long |>
   group_by(condition) |> 
   summarise(
     mean = mean(RT_ms), sd = sd(RT_ms),
-    '95%' = paste0("[", paste(quantile(RT_ms, c(0.025, 0.975)) |> round(), collapse = ", "), "]"),
-    '66%' = paste0("[", paste(quantile(RT_ms, c(0.17, 0.83)) |> round(), collapse = ", "), "]")
+    '95%' = paste0("[", paste(quantile(RT_ms, c(0.025, 0.975)) |> round(2), collapse = ", "), "]"),
+    '85%' = paste0("[", paste(quantile(RT_ms, c(0.075, 0.925)) |> round(2), collapse = ", "), "]"),
+    '75%' = paste0("[", paste(quantile(RT_ms, c(0.125, 0.875)) |> round(2), collapse = ", "), "]"),
+    '66%' = paste0("[", paste(quantile(RT_ms, c(0.17, 0.83)) |> round(2), collapse = ", "), "]")
   )
-
+  
 stroopdrawsunlog_long_tab
 ```
 
+The table above shows at what confidence values we can expect the posterior mean RTs to fall under for the 6 conditions of interest. In the congruent conditions, English has the highest posterior mean RTs at 1288.767ms, followed by Hindi at 1114.456ms and lastly Latin Hindi at 1075.772ms. This mimics the pattern established by the raw values above.
+
+In the incongruent conditions, the pattern is the same: English trials had the longest RTs, followed by Hindi and then Latin script Hindi. This indicates that, even mitigating for participant variability, participants are predicted to have the fastest RTs reading Latin script Hindi.
+
+Now we have the posterior summary measures from the regression model, we can plot the data to compare how the data is distributed.
+
 ```{r}
-conditional_effects(ENHIstroopbrm, "language:Trialtype")
+#| label: plot: conditional effects log
+conditional_effects(ENHIstroopbrm)
 ```
 
-## Discussion
+Figure 3 shows a conditional effects whisker plot. Conditional effects of the brms model indicate a pattern of greater variance in RTs across all incongruent conditions. Posterior mean RTs were higher in English in both congruency conditions compared the equivalent conditions in Latin Hindi or Devanagari Hindi. This indicates a higher probability of the Stroop effect in English incongruent trials, compared to Hindi and Latin Hindi incongruent trials.
 
-*Write a brief discussion of the your model results in light of the research question.*
+```{r}
+#| label: plot: half-eye unlog
+
+stroopdrawsunlog_long |>
+  ggplot(aes(x = RT_ms, y = condition, fill = condition)) +
+  stat_halfeye() +
+  coord_cartesian(xlim = c(0, 3000))+
+  labs(
+    x = "Predicted RTs", y = "Conditions",
+    title = "Figure 4: half-eye plot showing the distribution of RTs across difference language and congruency conditions",
+    caption = "Point = mean, thick bar = 66% CrI, thin bar = 95% CrI."
+  )
+```
+
+Figure 4 above is a half-eye plot comparing the posterior means, 66% CrIs, 95% CrIs, and probability distribution of RTs across all 3 language conditions and congruency conditions. This plot shows that, even controlling for participant variability, there is considerably more variance in the English and Hindi incongruent predicted RTs. In contrast to the raw data plot above in Section 3.4, this plot indicates a stronger pattern of Stroop effect in English and Devanagari Hindi with higher mean RTs, but not in Latin Script Hindi. The greatest difference in congruency within language conditions appears to be Congruent and Incongruent Hindi; however, this degree of difference is marginal compared to the difference between English congruency conditions. It is also important to stress the degree of overlap between the posterior means and CrIs of all 6 conditions plotted here, reinforcing that the model cannot be confident in a correlation between the conditions and an effect on RTs.
+
+## 5. Discussion
+
+This study set out to investigate the effect of orthography on non-selective activation in Hindi-English bilinguals with a Stroop task which manipulated script in Hindi while holding the phonology of the language constant.
+
+Our first research question asked whether Hindi-English bilinguals have longer reaction times, and therefore a greater Stroop effect, reading Latin script Hindi words versus reading Devanagari Hindi words. We hypothesised that reaction times in incongruent Latin Script trials would be greater compared to incongruent Devanagari Hindi trials, indicating a greater Stroop effect. However, our regression model not able to confidently identify a combined relationship between language and incongruence at 95% or 80% CrIs, and thus our regression results are inconclusive for this research question. Surprisingly, the pattern indicated by the raw data and the summary measures would suggest that Latin Hindi reaction times for incongruent and congruent conditions were similar and faster than English or Devanagari Hindi conditions. This is an intriguing result worthy of further exploration in a future study.
+
+Secondly, we asked which language condition had the greatest degree of interference between congruent and incongruent trials across language conditions. The BIA+ model hypothesised that the greatest magnitude of interference would be found in the Latin Script Hindi model as the script would not be an effective suppression cue and the phonology of the words would be the same, causing significant interference. Once again, our regression model was not able to confidently identify an effect between these conditions at 95% confidence intervals, so we must conclude that the results also remain inconclusive.
+
+Nonetheless, these intiial results from the raw data would contradict the predictions of the BIA+ model, which claimed that script differences with similar (or identical) phonology would create greater interference during non-selective activation for bilinguals. 
+
+### 5.1 Limitations
+
+We identified a small number of limitations in the present study which may have emerged due to the small scope of the project or as a byproduct of the methodological design. The first was the sample size; a larger group of participants were recruited but unfortunately not included in the study as they failed to respond in time. The size of this sample, combined with the varying effects fitted in the regression model, decreases the model's confidence in any relationships between the results. Researchers seeking to replicate the present study should address this as a primary concern.
+
+Additionally, the order of trials in the Testable experiment may have contributed to the pattern of effect seen in the language condition. RTs in the English trials - which came first in the experimental design - were longer than that of Hindi which followed, or Latin Hindi which were lower still than Hindi. It is possible that participants' overall competency and reaction times in the Stroop task improved with experience (i.e., greater familiarity with the colour buttons on the keyboard) which mitigated the effect of language on the Stroop task. Possible solutions to this include counterbalancing the order of trials for participants to mitigate the effect of practice, or replicating this with oral responses instead of keyboard responses. Additionally, it is worth considering that the participants' reading proficiency scores varied considerably compared to their English scores. A stronger reading proficiency in English would plausibly skew the results, and the Latin script combined with the Hindi phonology would provide a much stronger cue. It would be therefore be of great interest to conduct the experiment again with a similar cohort of participants and collecting oral data rather than push data, as this could have clearly impacted the Stroop effect seen here. 
+
