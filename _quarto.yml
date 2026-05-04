@@ -7,6 +7,8 @@ format:
   pdf:
     number-sections: true
 
+bibliography: b281160ref.bib
+
 execute:
   freeze: false
 
