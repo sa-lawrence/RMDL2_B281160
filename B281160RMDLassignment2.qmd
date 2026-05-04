@@ -173,7 +173,9 @@ Stroop_filter |>
   group_by(language, Trialtype) |> 
   summarise(
     mean = mean(RT), sd = sd(RT), median(RT), min(RT), max(RT)) |> 
-  knitr::kable(digits = 2, col.names = c("Trial Language", "Congruency Condition", "Mean RT", "SD RT", "Median RT", "Min RT", "Max RT"), 
+  knitr::kable(digits = 2, col.names = c("Trial Language", "Congruency 
+                                         Condition", "Mean RT", "SD RT", 
+                                         "Median RT", "Min RT", "Max RT"), 
   caption = "Table 4: Summary measures of reaction times (RT) across language and congruency conditions")
     
 ```
@@ -186,7 +188,8 @@ Stroop_filter |>
   group_by(participant_ID, language, Trialtype) |> 
   summarise(
     prop_accuracy = mean(correct)*100) |>
-  knitr::kable(digits = 2, col.names = c("Participant ID", "Language", "Congruency", "Accuracy %"), 
+  knitr::kable(digits = 2, col.names = c("Participant ID", "Language", 
+                                         "Congruency", "Accuracy %"), 
                caption = "Table 5: Summary measures of accuracy 
                across language and congruency conditions by participant")
 ```
@@ -197,7 +200,8 @@ Stroop_filter |>
   group_by(language, Trialtype) |> 
   summarise(
     mean(correct)*100) |>
-  knitr::kable(digits = 2, col.names = c("Language", "Congruency", "Mean accuracy %"), 
+  knitr::kable(digits = 2, col.names = c("Language", "Congruency", 
+                                         "Mean accuracy %"), 
                caption = "Table 6: Summary measures of accuracy 
                across language and congruency conditions")
 ```
@@ -228,7 +232,7 @@ jitterviolinRT_raw
 This is a jitter plot of RTs grouped by language and separated by congruency condition in two panels. Within each panel, the participant’s language is represented by colour, with green for English, orange for Hindi, and purple for Latin Hindi. The jitter plots show the individual raw data points, and the violin overlay indicates the density and variability in participants' responses. As shown in the summary conditions above, there appears to be greater variability in the RTs in incongruent conditions for English and Devanagari Hindi, with the exception of the outliers in the English congruent condition, reporting RTs of over 8000ms. Latin Hindi is the exception to this pattern, with similar density width patterns yet less overall variability in RT range.
 
 ```{r}
-# This jitter plot depicts the mean accuracy percentage for each participant grouped by language and trial type to explore the relationship between accuracy, language, and trial type.
+
 #| label: raw-jitter-accuracy
 
 accuracy_stroop_filter <- Stroop_filter |>
@@ -248,8 +252,10 @@ ggplot() +
      fun.data = "mean_cl_boot", size = 0.5
   ) +
   labs(
-    title = "Figure 2: Percentage of mean accuracy in Stroop task by participant",
-    caption = "Mean proportion is represented by coloured points with 95% bootstrapped Confidence Intervals.",
+    title = "Figure 2: Percentage of mean accuracy in Stroop task by 
+    participant",
+    caption = "Mean proportion is represented by coloured points with 95% 
+    bootstrapped Confidence Intervals.",
     x = "Language",
     y = "Accuracy"
   ) +
@@ -269,7 +275,8 @@ This model is designed to assess the relationship between RTs, language script, 
 Finally, the model was fitted with 0.999 adapt_delta and a max_treedepth of 15 to avoid divergent transitions.
 
 ```{r}
-#running the lognormal regression model, as the variable of interest is continuous and cannot be below 0. Divergent transitions were flagged several times, so new parameters were added to brm model. 
+#running the lognormal regression model
+
 #| label: initial model
 
 ENHIstroopbrm <- brm(
@@ -321,15 +328,18 @@ To understand the effect of each of the language conditions and congruency condi
 stroopbrm_draws <- as_draws_df(ENHIstroopbrm)
 stroopbrm_draws
 
-#Mutating the draws to get the intercepts for all six conditions of interest for reaction times: English Congruent, English Incongruent, Hindi Congruent, Hindi Incongruent, Latin Hindi Congruent and Latin Hindi Incongruent.
+#Mutating the draws to get the intercepts for all six conditions of interest 
+
 stroopbrm_draws2 <- stroopbrm_draws |> 
   mutate(
     english_congruent = b_Intercept,
     hindi_congruent = b_Intercept + b_languagehindi,
     latin_hindi_congruent = b_Intercept + b_languagelatinhindi, 
     english_incongruent = b_Intercept + b_Trialtypeincongruent,
-    hindi_incongruent = b_Intercept + b_languagehindi + b_Trialtypeincongruent + `b_languagehindi:Trialtypeincongruent`,
-    latin_hindi_incongruent = b_Intercept + b_languagelatinhindi + b_Trialtypeincongruent + `b_languagelatinhindi:Trialtypeincongruent`
+    hindi_incongruent = b_Intercept + b_languagehindi + b_Trialtypeincongruent 
+    + `b_languagehindi:Trialtypeincongruent`,
+    latin_hindi_incongruent = b_Intercept + b_languagelatinhindi 
+    + b_Trialtypeincongruent + `b_languagelatinhindi:Trialtypeincongruent`
   )
     
 ```
@@ -338,10 +348,11 @@ stroopbrm_draws2 <- stroopbrm_draws |>
 #| label: selecting relevant conditions
 
 
-#Selecting the relevant columns from the draws and pulling them into a new tibble for clarity.
+#Selecting the relevant columns and pulling them into a new tibble for clarity.
 
 stroopbrm_draws3 <- stroopbrm_draws2 |>
-  select(english_congruent, hindi_congruent, latin_hindi_congruent, english_incongruent, hindi_incongruent, latin_hindi_incongruent)
+  select(english_congruent, hindi_congruent, latin_hindi_congruent, 
+         english_incongruent, hindi_incongruent, latin_hindi_incongruent)
 ```
 
 The Lognormal regression model automatically logs the RTs to approximate them to a Gaussian distribution; however, for ease of interpreting the summary estimates, we can unlog them to retrieve the estimated RTs in ms from the draws.
@@ -349,7 +360,7 @@ The Lognormal regression model automatically logs the RTs to approximate them to
 ```{r}
 #| label: unlogging the draws
 
-# unlogging the RTs to convert them back to ms; mutate is used to create new columns for the unlogged values and rename the previous columns as "logged" for clarity.
+# unlogging the RTs; mutate is used to create new columns 
 
 stroopdrawsunlog <- stroopbrm_draws3 |>
   mutate(
@@ -378,7 +389,8 @@ As the model did not have confidence in a relationship between conditions at 95%
 #pivot longer LOGGED VALUES
 stroopdrawslog_long <- stroopdrawsunlog |> 
   select(english_congruent_log, english_incongruent_log, 
-         hindi_congruent_log, hindi_incongruent_log, latin_hindi_congruent_log, latin_hindi_incongruent_log) |> 
+         hindi_congruent_log, hindi_incongruent_log, latin_hindi_congruent_log, 
+         latin_hindi_incongruent_log) |> 
   pivot_longer(everything(), names_to = "condition", values_to = "RT_ms")
 
 #summarise pivot longer 
@@ -386,10 +398,14 @@ stroopdrawslog_long_tab <- stroopdrawslog_long |>
   group_by(condition) |> 
   summarise(
     mean = mean(RT_ms), sd = sd(RT_ms),
-    '95%' = paste0("[", paste(quantile(RT_ms, c(0.025, 0.975)) |> round(2), collapse = ", "), "]"),
-    '85%' = paste0("[", paste(quantile(RT_ms, c(0.075, 0.925)) |> round(2), collapse = ", "), "]"),
-    '75%' = paste0("[", paste(quantile(RT_ms, c(0.125, 0.875)) |> round(2), collapse = ", "), "]"),
-    '66%' = paste0("[", paste(quantile(RT_ms, c(0.17, 0.83)) |> round(2), collapse = ", "), "]")
+    '95%' = paste0("[", paste(quantile(RT_ms, c(0.025, 0.975)) |> round(2), 
+                              collapse = ", "), "]"),
+    '85%' = paste0("[", paste(quantile(RT_ms, c(0.075, 0.925)) |> round(2), 
+                              collapse = ", "), "]"),
+    '75%' = paste0("[", paste(quantile(RT_ms, c(0.125, 0.875)) |> round(2), 
+                              collapse = ", "), "]"),
+    '66%' = paste0("[", paste(quantile(RT_ms, c(0.17, 0.83)) |> round(2), 
+                              collapse = ", "), "]")
   )
   
 stroopdrawslog_long_tab
@@ -412,10 +428,14 @@ stroopdrawsunlog_long_tab <- stroopdrawsunlog_long |>
   group_by(condition) |> 
   summarise(
     mean = mean(RT_ms), sd = sd(RT_ms),
-    '95%' = paste0("[", paste(quantile(RT_ms, c(0.025, 0.975)) |> round(2), collapse = ", "), "]"),
-    '85%' = paste0("[", paste(quantile(RT_ms, c(0.075, 0.925)) |> round(2), collapse = ", "), "]"),
-    '75%' = paste0("[", paste(quantile(RT_ms, c(0.125, 0.875)) |> round(2), collapse = ", "), "]"),
-    '66%' = paste0("[", paste(quantile(RT_ms, c(0.17, 0.83)) |> round(2), collapse = ", "), "]")
+    '95%' = paste0("[", paste(quantile(RT_ms, c(0.025, 0.975)) |> round(2), 
+                              collapse = ", "), "]"),
+    '85%' = paste0("[", paste(quantile(RT_ms, c(0.075, 0.925)) |> round(2), 
+                              collapse = ", "), "]"),
+    '75%' = paste0("[", paste(quantile(RT_ms, c(0.125, 0.875)) |> round(2), 
+                              collapse = ", "), "]"),
+    '66%' = paste0("[", paste(quantile(RT_ms, c(0.17, 0.83)) |> round(2), 
+                              collapse = ", "), "]")
   )
   
 stroopdrawsunlog_long_tab
@@ -447,7 +467,8 @@ stroopdrawsunlog_long |>
   coord_cartesian(xlim = c(0, 3000))+
   labs(
     x = "Predicted RTs", y = "Conditions",
-    title = "Figure 4: half-eye plot showing the distribution of RTs across difference language and congruency conditions",
+    title = "Figure 4: half-eye plot showing the distribution of RTs across 
+    difference language and congruency conditions",
     caption = "Point = mean, thick bar = 66% CrI, thin bar = 95% CrI."
   )
 ```
